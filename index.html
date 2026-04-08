@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guillaume Bruelle — Agronomist & Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1A14;
+    --earth: #5C4A2A;
+    --sage: #4A6741;
+    --rust: #A0432A;
+    --muted: #7A7468;
+    --rule: #D4CEC2;
+    --card-bg: #FDFAF4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: end;
+    position: relative;
+    z-index: 1;
+  }
+
+  .africa-bg {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 560px;
+    height: auto;
+    color: var(--earth);
+    opacity: 0.07;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--earth);
+  }
+
+  .tagline {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 48ch;
+    line-height: 1.6;
+  }
+
+  .location-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 1.5rem;
+  }
+
+  .location-tag::before {
+    content: '◎ ';
+    color: var(--rust);
+  }
+
+  .header-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .header-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.15s;
+  }
+
+  .header-links a:hover { color: var(--rust); }
+
+  /* ── Nav ── */
+  nav {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 10;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  nav a:hover { color: var(--ink); }
+
+  /* ── Sections ── */
+  section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── About ── */
+  .about-text p {
+    margin-bottom: 1rem;
+    color: var(--ink);
+    max-width: 60ch;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-text strong { color: var(--earth); font-weight: 600; }
+
+  /* ── Projects ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--sage);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .project-card:hover {
+    border-color: var(--sage);
+    transform: translateY(-2px);
+  }
+
+  .project-card:hover::before { opacity: 1; }
+
+  .project-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.6rem;
+  }
+
+  .project-card h3 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+
+  .project-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--muted);
+  }
+
+  .project-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--rust);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .project-link::after { content: ' →'; }
+  .project-link:hover { text-decoration: underline; }
+
+  /* ── Publications ── */
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .pub-item {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .pub-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+
+  .pub-content h3 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.975rem;
+    font-weight: 400;
+    line-height: 1.45;
+    margin-bottom: 0.3rem;
+    color: var(--ink);
+  }
+
+  .pub-content .pub-venue {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .pub-content a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--rust);
+    text-decoration: none;
+    margin-left: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .pub-content a:hover { text-decoration: underline; }
+
+  /* ── Skills ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .skill-group h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--earth);
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-group ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .skill-group li {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .skill-group li::before {
+    content: '— ';
+    color: var(--rule);
+  }
+
+  /* ── Contact ── */
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.15s;
+  }
+
+  .contact-link:hover { color: var(--rust); }
+
+  .contact-link .icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+  }
+
+  /* ── Footer ── */
+  footer {
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .header-inner { grid-template-columns: 1fr; }
+    .header-links { flex-direction: row; align-items: flex-start; flex-wrap: wrap; }
+    .projects-grid { grid-template-columns: 1fr; }
+    nav ul { gap: 1rem; flex-wrap: wrap; }
+    .pub-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    .pub-year { padding-top: 0; }
+  }
+
+  /* ── Avatar ── */
+  .avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--rule);
+    margin-bottom: 1.25rem;
+    display: block;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  }
+
+  .avatar.scrolled {
+    width: 48px;
+    height: 48px;
+    opacity: 0.7;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  header, section { animation: fadeUp 0.5s ease both; }
+  section:nth-of-type(2) { animation-delay: 0.1s; }
+  section:nth-of-type(3) { animation-delay: 0.15s; }
+  section:nth-of-type(4) { animation-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ── Header ── -->
+  <header>
+
+    <!-- Decorative Africa map background -->
+    <img class="africa-bg" src="ssa.svg" alt="">
+
+    <div class="header-inner">
+      <div>
+        <img src="profile.jpg" alt="Guillaume Bruelle" class="avatar">
+        <p class="eyebrow">Agronomist · Researcher</p>
+        <h1>Guillaume<br><em>Bruelle</em></h1>
+        <p class="tagline">
+          Agronomist and farming systems researcher at CIRAD, working on agroecological transitions and smallholder farm household analysis across sub-Saharan Africa and beyond.
+        </p>
+        <p class="location-tag">CIRAD · UMR AIDA · ESTIME team</p>
+      </div>
+      <div class="header-links">
+        <a href="https://github.com/guillaume-bruelle" target="_blank">GitHub</a>
+        <a href="https://agritrop.cirad.fr/view/auteurcirad/424.html" target="_blank">Agritrop</a>
+        <a href="https://orcid.org/0000-0002-8390-419X" target="_blank">ORCID</a>
+        <a href="mailto:guillaume.bruelle@cirad.fr">Email</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>About</h2>
+    </div>
+    <div class="about-text">
+      <p>
+        I am an agronomist and farming systems researcher at <strong><a href="https://ur-aida.cirad.fr/" target="_blank" style="color: var(--earth); text-decoration: none;">CIRAD</a></strong> (UMR AIDA, ESTIME team), working on <strong>agroecological transitions</strong> and <strong>smallholder farm household analysis</strong>. My research covers the agronomic and economic dimensions of farming systems — from field-level crop management to whole-farm modelling under climate and market uncertainty.
+      </p>
+      <p>
+        A recurring focus of my work is understanding how smallholder farmers make decisions, what constraints they face, and how agroecological intensification can become both technically viable and economically attractive for them. I work across a range of tropical and sub-tropical contexts in sub-Saharan Africa.
+      </p>
+      <p>
+        My current work is centred on the EU-funded <strong><a href="https://raiz.org.zw/" target="_blank" style="color: var(--earth); text-decoration: none;">RAIZ project</a></strong> (Resilience building through Agroecological Intensification in Zimbabwe), where I focus on three interconnected activities: coordinating the <strong>living lab</strong> approach that brings together farmers, extension services, and researchers; monitoring the <strong>network of reference farms</strong> to track agronomic and economic performance over time; and working on <strong>climate information services</strong> — studying how smallholder farmers access and use seasonal forecasts to support agroecological decision-making.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Projects ── -->
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <!-- hide this card for now
+      <div class="project-card">
+        <p class="project-tag">Agroecology · Decision Support</p>
+        <h3>RAIZ Decision Support Tool</h3>
+        <p>Offline-capable single-file HTML app deployable on Android tablets for extension agents. Configurable crop calendar, labour, and economic parameter system for farm-level agroecological analysis.</p>
+        <div class="project-stack">
+          <span class="tag">HTML</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Offline-first</span>
+        </div>
+      </div>
+      -->
+      
+      <div class="project-card">
+        <p class="project-tag">Farm Monitoring · Data Pipeline</p>
+        <h3>NRF Monitoring System</h3>
+        <p>KoboToolbox-to-SQLite data pipeline with interactive dashboards and automated PDF reporting for ward-level monitoring. Includes GPS plot boundary collection and spatial analysis with R.</p>
+        <div class="project-stack">
+          <span class="tag">Python</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">R / sf</span>
+          <span class="tag">KoboToolbox</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <p class="project-tag">Optimisation · Research</p>
+        <h3>FarmSTAR</h3>
+        <p>GAMS-based linear programming model for whole-farm household optimisation, solved via HiGHS. Produces detailed scenario analyses to support agricultural policy research and farm advisory work.</p>
+        <div class="project-stack">
+          <span class="tag">GAMS</span>
+          <span class="tag">HiGHS</span>
+          <span class="tag">Linear Programming</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Publications ── -->
+  <section id="publications">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Publications</h2>
+    </div>
+    <div class="pub-list">
+
+      <div class="pub-item">
+        <span class="pub-year">2025</span>
+        <div class="pub-content">
+          <h3>Economic attractiveness of agro-ecological intensification for mixed crop-livestock smallholders: a farm modelling approach in contrasted environments</h3>
+          <p class="pub-venue">Farming System Design Conference (FSD8), Palaiseau
+            <a href="https://doi.org/10.17180/j9xc-fs91" target="_blank">DOI →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <span class="pub-year">2024</span>
+        <div class="pub-content">
+          <h3>Targeting smallholder farmers for climate information services adoption in Africa: A systematic literature review</h3>
+          <p class="pub-venue"><em>Climate Services</em> &nbsp;·&nbsp; vol. 34, p. 100450
+            <a href="https://doi.org/10.1016/j.cliser.2024.100450" target="_blank">DOI →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <span class="pub-year">2021</span>
+        <div class="pub-content">
+          <h3>Modelling mixed crop-livestock farms for supporting farmers' strategic reflections: The CLIFS approach</h3>
+          <p class="pub-venue"><em>Computers and Electronics in Agriculture</em> &nbsp;·&nbsp; p. 106570
+            <a href="https://doi.org/10.1016/j.compag.2021.106570" target="_blank">DOI →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <span class="pub-year">2017</span>
+        <div class="pub-content">
+          <h3>Can conservation agriculture improve crop water availability in an erratic tropical climate producing water stress? A simple model applied to upland rice in Madagascar</h3>
+          <p class="pub-venue"><em>Agricultural Water Management</em> &nbsp;·&nbsp; vol. 192, pp. 281–293
+            <a href="https://doi.org/10.1016/j.agwat.2017.07.020" target="_blank">DOI →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <span class="pub-year">2015</span>
+        <div class="pub-content">
+          <h3>Short- to mid-term impact of conservation agriculture on yield variability of upland rice: Evidence from farmer's fields in Madagascar</h3>
+          <p class="pub-venue"><em>Experimental Agriculture</em> &nbsp;·&nbsp; vol. 51(1), pp. 66–84
+            <a href="https://doi.org/10.1017/S0014479714000155" target="_blank">DOI →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <span class="pub-year">2015</span>
+        <div class="pub-content">
+          <h3>Trade-offs around the use of biomass for livestock feed and soil cover in dairy farms in the Alaotra lake region of Madagascar</h3>
+          <p class="pub-venue"><em>Agricultural Systems</em> &nbsp;·&nbsp; vol. 134, pp. 36–47
+            <a href="https://doi.org/10.1016/j.agsy.2014.03.003" target="_blank">DOI →</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <p style="margin-top: 1.5rem; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);">
+      Full list on <a href="https://agritrop.cirad.fr/view/auteurcirad/424.html" target="_blank" style="color: var(--rust); text-decoration: none;">Agritrop →</a>
+    </p>
+  </section>
+
+  <!-- ── Skills ── -->
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Methods &amp; tools</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Research methods</h3>
+        <ul>
+          <li>Farming systems analysis</li>
+          <li>Household surveys (KoboToolbox)</li>
+          <li>Linear programming</li>
+          <li>Scenario modelling</li>
+          <li>Agroecological assessment</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Data &amp; analysis</h3>
+        <ul>
+          <li>Python (pandas, matplotlib)</li>
+          <li>R (tidyverse, sf, leaflet)</li>
+          <li>SQLite</li>
+          <li>GAMS / HiGHS</li>
+          <li>Spatial analysis (GIS)</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Field &amp; extension</h3>
+        <ul>
+          <li>Survey design (KoboToolbox / XLSForm)</li>
+          <li>GPS plot boundary collection</li>
+          <li>Offline tools for field teams</li>
+          <li>Data pipeline design</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Context</h3>
+        <ul>
+          <li>Sub-Saharan Africa</li>
+          <li>Smallholder farming systems</li>
+          <li>Mixed crop-livestock systems</li>
+          <li>Agroecological intensification</li>
+          <li>French &amp; English</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Contact</h2>
+    </div>
+    <p style="color: var(--muted); margin-bottom: 1.75rem; max-width: 48ch; font-size: 0.925rem;">
+      Open to research collaborations and conversations about agroecological transitions, smallholder farming systems, or farm household modelling — across any context.
+    </p>
+    <div class="contact-row">
+      <a class="contact-link" href="mailto:guillaume.bruelle@cirad.fr">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        guillaume.bruelle@cirad.fr
+      </a>
+      <a class="contact-link" href="https://github.com/guillaume-bruelle" target="_blank">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a class="contact-link" href="https://agritrop.cirad.fr/view/auteurcirad/424.html" target="_blank">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Agritrop
+      </a>
+      <a class="contact-link" href="https://orcid.org/0000-0002-8390-419X" target="_blank">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9 12h6M12 8v8"/></svg>
+        ORCID
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <p>Guillaume Bruelle · CIRAD</p>
+    <p>Built with plain HTML · Hosted on GitHub Pages</p>
+  </footer>
+
+</div>
+
+<script>
+  const avatar = document.querySelector('.avatar');
+  window.addEventListener('scroll', () => {
+    avatar.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+</script>
+</body>
+</html>
